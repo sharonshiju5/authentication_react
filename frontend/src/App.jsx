@@ -6,13 +6,17 @@ import HomePage from './components/home'
 import CreateUser from './components/register'
 import LogUser from './components/LoginUser'
 function App() {
-  
+  const [user,setID]=useState("")
   return (
    <>
       <div className="section">
           <BrowserRouter>
+          {
+            user&&<Nav user={user}/>
+          }
+          
             <Routes>
-              <Route path="/" Component={HomePage}/>
+              <Route path="/" element={<HomePage setID={setID}/>} />
               <Route path="/profile" Component={CreateUser}/>
               <Route path="/login" Component={LogUser}/>
             </Routes>

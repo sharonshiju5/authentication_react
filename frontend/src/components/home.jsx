@@ -2,37 +2,53 @@ import Nav from "./nav"
 import "../css/home.css"
 import img2 from "../assets/2.png"
 import img3 from "../assets/3.png"
-function HomePage(){
+import { useEffect } from "react"
+import { Link,useNavigate } from "react-router-dom";
+import { data } from "react-router-dom"
+function HomePage({setID}){
+  const navigate=useNavigate();
+
     const Token =async()=>{
         try {
-            const token=sessionStorage.getItem("token")
-            console.log(token);
-    
-    
-            // if (!token) {
+            const token=localStorage.getItem("token")
+            // console.log(token);
+            if (!token) {
             //     console.error("No token found!");
-            //     alert("You need to log in first.");
+                alert("You need to log in first.");
+                navigate("/login")
                   
-            //     return;
-            // }
+                return;
+            }
           const res = await fetch("http://localhost:3000/api/home",{
             method:"GET",
             headers:{
-              "authorization":`Bearer ${token}`
+              "Content-Type":"application/json",
+              Authorization:`Bearer ${token}`
             },
-            body:JSON.stringify(data)
           })
-          console.log(res);
+          const data=await res.json()
+          console.log(data);
           
+          if (res.status === 200) {
+            const name=data.username
+            console.log(name);
+            // setUser(name);
+            setID(name);
+            console.log(name);
+            
+            
+          }
         } catch (error) {
           console.log(error);
           
         }
       }
-      Token()
-    return(
+      useEffect(() => {
+        Token();
+      }, []);
+          return(
         <div className="section">
-        <Nav/>
+         {/* <ToastContainer /> */}
         
         <div className="container">
             <div className="divs">

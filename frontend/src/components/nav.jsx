@@ -2,7 +2,7 @@
 import img4 from "../assets/4.png"
 import { Link } from "react-router-dom";
 import "../App.css";
-function Nav(){
+function Nav({user}){
     return(
         <div className="nav">
             <div className="nav-box">
@@ -27,7 +27,8 @@ function Nav(){
                     <img src={img4} className="not" alt=""/>
                 </div>
                 <div className="navs">
-                    <h3 id="username">  </h3><div className="person-img"><img src="./asset/1.jpg" id="profile" alt=""/></div>
+                    <h3 id="username"> 
+                    <span className="username">{user ? `Hello, ${user}` : "Loading..."}</span> </h3><div className="person-img"><img src="./asset/1.jpg" id="profile" alt=""/></div>
                 </div>
                 <hr/>
                 <div className="navs">
